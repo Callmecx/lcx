@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+     #canvas{
+       background-color: rgb(0, 0, 0);
+     }
+  </style>
+</head>
+<body>
+     <canvas width="1333" height="700" id="canvas"></canvas>
+  <script type="text/javascript">
+     
+ //    canvas.setAttribute("width", screen.availWidth);
+ //    canvas.setAttribute("height", screen.availHeight);
+    var  arrColor= ['red','rgba(198, 240, 14, 0.952)','blue','rgb(234, 32, 241)','green','rgb(82, 241, 117)','rgba(225, 98, 236, 0.993)','yellow','white','rgba(21, 226, 233, 0.993)'];
+    var ranColor=Math.floor(Math.random()*255);
+    var ranColor2=Math.floor(Math.random()*255);
+ 
+    var ranColor3 =parseFloat(Math.random()+0.5);
+       console.log(ranColor,ranColor2,ranColor3);
+  //   console.log(arrColor[ranColor]);
+     var num1 = Math.floor(Math.random*300+500);
+     var canvas = document.querySelector('#canvas');
+     var context = canvas.getContext('2d');     
+     var gradient=context.createRadialGradient(500,500,800,800,300,50);
+        gradient.addColorStop(0,'rgba('+ranColor+','+ranColor+','+ranColor+','+ranColor3+')');
+        gradient.addColorStop(1,'rgba('+ranColor2+','+ranColor2+','+ranColor2+','+ranColor3+')'); 
+     var w=canvas.width;
+     var h=canvas.height; 
+     var stars=[];
+     setInterval(function(){
+        var n1 = Math.floor(Math.random()*300+600);
+        var n2 = Math.floor(Math.random()*300+600);
+        var  arrColor= arrColor= ['red','rgba(198, 240, 14, 0.952)','blue','rgb(234, 32, 241)','green','rgb(82, 241, 117)','rgba(225, 98, 236, 0.993)','yellow','white','rgba(21, 226, 233, 0.993)'];
+        var ranColor=Math.floor(Math.random()*255);
+        var ranColor2=Math.floor(Math.random()*255);
+        var ranColor3 =parseFloat(Math.random()+0.3);
+        ranColor4=Math.floor(Math.random()*255);
+        ranColor5=Math.floor(Math.random()*255);
+        ranColor6=Math.floor(Math.random()*255);
+        ranColor7=Math.floor(Math.random()*255);
+        var context = canvas.getContext('2d');   
+         gradient =context.createRadialGradient(600,600,n1,n2,300,50);
+         gradient.addColorStop(0,'rgba('+ranColor+','+ranColor2+','+ranColor4+','+ranColor3+')');
+         gradient.addColorStop(1,'rgba('+ranColor5+','+ranColor6+','+ranColor7+','+ranColor3+')'); 
+        //console.log(arrColor[ranColor]);
+     },2000)
+     function star(){
+         //Math.ceil()执行向上舍入，即它总是将数值向上舍入为最接近的整数；
+         //Math.floor()执行向下舍入，即它总是将数值向下舍入为最接近的整数；
+         //Math.round()执行标准舍入，即它总是将数值四舍五入为最接近的整数
+       var r=Math.round(Math.random()*100);
+    //    var g=Math.round(Math.random()*100+55);
+    //    var b=Math.round(Math.random()*100+155);
+       var x=Math.random()*w;
+       var y=Math.random()*h;
+       var xspeed=Math.floor((Math.random()-0.5)*20);
+       var yspeed=Math.ceil((Math.random()-0.5)*20);
+       r=10;
+       //绘制圆形
+       this.draw=function(){
+               context.fillStyle=gradient;
+               context.beginPath();
+               context.arc(x,y,15,0,Math.PI*2);
+               context.closePath();
+               context.fill();            
+         }
+        //移动星星
+        this.move=function(){
+             x+=xspeed;
+             y+=yspeed;
+         }
+        this.edge=function(){
+             if(x<=0||x>=w){
+                 xspeed*=-1;
+             }
+             if(y<=0||y>=h){
+                 yspeed*=-1;
+             }
+         }
+     }      
+     //初始化对象  
+    for(var i=0;i<333;i++){
+         stars[i]=new star();
+     }
+             
+     //动起来
+     setInterval(function(){
+         context.clearRect(0,0,w,h);
+        
+         for(var i=0;i<333;i++){
+             //依次调用函数
+             //检测是否超出画布边   
+             stars[i].edge();
+             //移动小球
+             stars[i].move();
+             //绘制小球
+             stars[i].draw();
+         }},100);
+     
+     //让画布自适应窗口，但每次拉伸后会刷新    
+    //  window.addEventListener("resize", resizeCanvas, false);   
+    //  function resizeCanvas() {
+    //      w = canvas.width = window.innerWidth;
+    //      h = canvas.height = window.innerHeight;
+    //  }
+ 
+
+ </script>
+</body>
+</html>
